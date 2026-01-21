@@ -2,89 +2,580 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WASIAT4D 2 | Saldo Gratis</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>WASIAT4D2 | Mini Games</title>
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/P5sZ8KPX/logocard.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #ffd700;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      font-size: 32px;
+    }
+    
+    .fade {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(10px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+    
+    .container {
+      background: rgba(0,0,0,0.55);
+      padding:30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    
+    h2 {
+      margin-bottom: 20px;
+      color: #00ffd5;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffd700, #ff9800);
+      color: #000;
+      transition: all 0.3s ease;
+    }
+    
+    button:active {
+      transform: scale(0.85);
+      box-shadow: 0 6px 15px rgba(255,215,0,0.4);
+    }
+    
+    button:disabled {
+      background: #888;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    .card-wrapper { 
+      position: relative; 
+      width: 100%; 
+      height: 360px;
+      margin-top: 30px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      flex-wrap: wrap; 
+      gap: 20px; 
+    } 
+    
+    .card { 
+      background: #fff; 
+      width: 45%; 
+      max-width: 110px; 
+      height: 160px; 
+      margin-bottom: 20px; 
+      border-radius: 15px; 
+      perspective: 1000px; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+      transition: 0.3s ease; 
+    }
+    
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .card-front {
+      color: #000;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .card-back{
+      transform: rotateY(180deg);
+      background: #fff;
+      color: #000;
+      border-radius: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .symbol {
+      position: absolute;
+      width: 35%;
+      height: auto;
+    }
+    
+    .symbol img {
+      width: 100%;
+      opacity: 0.7;
+    }
+    
+    .top-l {
+      top: 5px;
+      left: 5px;
+    }
+    
+    .bot-r {
+      bottom: 5px;
+      right: 5px;
+      transform: rotate(180deg);
+    }
+    
+    .card-logo-wrap {
+      width: 70%;
+    }
+    
+    .card-logo-wrap img {
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background: #fff;
+      color: #000;
+      border-radius: 15px;
+      width: 300px;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .result-card {
+      background: #01a332;
+      width: 90%;
+      max-width: 220px;
+      color: red;
+      font-size: 26px;
+      font-weight: bold;
+      height: 320px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      perspective: 1000px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: 0.3s;
+    }
+    
+    .end{
+      color: #f00;
+      padding: 10px;
+    }
+    
+    .result, .claim-prize {
+      text-align: center;
+      font-size: 24px;
+      margin: 25px;
+    }
+    
+    strong {
+      color: #ffd700;
+      font-weight: bold;
+    }
+    
+    .modal-content strong {
+      color: #000;
+      font-weight: bold;
+    }
+    
+    #home {
+      display: block;
+      margin: auto;
+      width: 60%
+    }
+    
+    a {
+      text-decoration: none;
+      color: #ffd700;
+    }
+    
+    .container #home {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-  <div class="win-notif" id="winner"></div>
-  <h1>Saldo Gratis WASIAT4D 2</h1>
-  <div class="card-container" id="cards">
-    <div class="card" id="card1">
-      <div class="card-inner">
-        <div class="card-front">
-          <span class="top"><u>A</u></span>
-          <span class="mid"><img class="logo" src="https://wasiat4d2.info/images/logo.png" alt="logo_wasiat4d_2"></span>
-          <span class="bot"><u>A</u></span>
+  <h1 class="fade">Selamat Datang Di Minigames WASIAT4D2</h1>
+  <div class="fade" id="app"></div>
+  
+  <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("keydown", e => {
+    const key = e.key.toLowerCase();
+    if (
+      key === "f12" ||
+      e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key) ||
+      e.ctrlKey && key === "u"
+    )
+    e.preventDefault();
+  });
+
+  let stage = "welcome";
+  let username = "";
+  let selectedCard = null;
+  const savedUser = localStorage.getItem("confirmedUser");
+  const savedCard = localStorage.getItem("confirmedCard");
+  const savedPrize = localStorage.getItem("confirmedPrize");
+  let cardsFlipped = false;
+  let shuffled = false;
+  let choose = "LOCKED";
+  const prize = ["BONUS DEPOSIT<br>10%", "UPGRADE VVIP<br>WINRATE 99.9%"];
+  let currentPrize = prize[Math.floor(Math.random() * prize.length)];
+  
+  function menuBack() {
+    const backBtn = document.querySelector(".back-btn");
+    if (!backBtn) return;
+    backBtn.addEventListener("click", () => {
+      if (stage === "inputUser") {
+        stage = "welcome";
+        render();
+      }
+      if (stage === "playing") {
+        stage = "inputUser";
+        render();
+      }
+    });
+  }
+    
+  function renderWelcome() {
+    return `
+      <div class="container">
+        <h2>Apakah Kamu Sudah Memiliki Akun?</h2>
+        <button id="hadiah">List Hadiah</button>
+        <button id="sudah">Sudah Punya</button>
+        <button id="belum">Belum Punya</button>
+      </div>
+    `;
+  }
+  
+  function renderInputUser() {
+    return `
+      <div class="container fade">
+        <h2>Masukkan Username</h2>
+        <input type="text" id="username" placeholder="Masukkan Username" autocomplete="off">
+        <button type="button" id="lanjut" disabled>Lanjutkan</button>
+        <button type="button" class="back-btn">Kembali</button>
+      </div>
+    `;
+  }
+  
+  function renderGames() {
+    return `
+      <div class="container fade">
+        <h2>Silahkan Pilih Kartu Keberuntunganmu</h2>
+        <div class="card-wrapper fade">
+        <div class="card" id="card1">
+          <div class="card-inner">
+            <div class="card-front">
+              BONUS DEPOSIT<br>10%
+            </div>
+            <div class="card-back">
+              <div class="symbol top-l"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+              <div class="card-logo-wrap"><img src="https://shorthe.link/wasiat4d2logo" alt="wasiat4d2"></div>
+              <div class="symbol bot-r"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+            </div>
+          </div>
         </div>
-        <div class="card-back" id="back1">
-          belakang
+        <div class="card" id="card2">
+          <div class="card-inner">
+            <div class="card-front">
+              BONUS NEWMEMBER<br>100%
+            </div>
+            <div class="card-back">
+              <div class="symbol top-l"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+              <div class="card-logo-wrap"><img src="https://shorthe.link/wasiat4d2logo" alt="wasiat4d2"></div>
+              <div class="symbol bot-r"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="card3">
+          <div class="card-inner">
+            <div class="card-front">
+              UPGRADE VVIP<br>WINRATE 99.9%
+            </div>
+            <div class="card-back">
+              <div class="symbol top-l"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+              <div class="card-logo-wrap"><img src="https://shorthe.link/wasiat4d2logo" alt="wasiat4d2"></div>
+              <div class="symbol bot-r"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="card4">
+          <div class="card-inner">
+            <div class="card-front">
+              DANA KAGET<br>50 RIBU
+            </div>
+            <div class="card-back">
+              <div class="symbol top-l"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+              <div class="card-logo-wrap"><img src="https://shorthe.link/wasiat4d2logo" alt="wasiat4d2"></div>
+              <div class="symbol bot-r"><img src="https://i.postimg.cc/TP7C9RqJ/logocard.png" alt="wasiat4d2"></div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <button type="button" id="shuffle">Acak Kartu</button>
+        <button type="button" class="back-btn">Kembali</button>
+      </div>
+      <div class="modal" id="modal"></div>
+    `;
+  }
+  
+  function renderModal() {
+    return `
+      <div class="modal-content">
+        <h3><strong>${username}</strong>, Anda Yakin Ingin Memilih Kartu ${selectedCard.id.replace("card", "")}?</h3>
+        <button type="button" id="yes">Yakin</button>
+        <button type="button" id="no">Batal</button>
+      </div>
+    `;
+  }
+  
+  function renderResult() {
+    return `
+      <div class="result" id="result">
+        Selamat! User <strong>${username}</strong> berhasil mendapatkan hadiah <strong>${currentPrize.replace("<br>", " ")}</strong> dari <strong>Kartu ${selectedCard.id.replace("card", "")}</strong>.
+      </div>
+      <div class="card-wrapper">
+      <div class="result-card">
+        <div class="card-inner">
+            <div class="card-front end">
+              ${currentPrize}
+            </div>
         </div>
       </div>
-    </div>
-    <div class="card" id="card2">
-      <div class="card-inner">
-        <div class="card-front">
-          <span class="top"><u>2</u></span>
-          <span class="mid"><img class="logo" src="https://wasiat4d2.info/images/logo.png" alt="logo_wasiat4d_2"></span>
-          <span class="bot"><u>2</u></span>
-        </div>
-        <div class="card-back" id="back2">
-          belakang
+      </div>
+      <div class="claim-prize">
+        Silakan <strong>Screenshot</strong> dan Claim Ke <strong><a href="https://shorthe.link/loginwasiat4d2" target="_blank" rel="noopener">Livechatt</a></strong> atau <strong><a href="https://shorthe.link/wa-wasiat4d2" target="_blank" rel="noopener">WhatsApp</a></strong> Untuk Claim Hadiahnya.
+      </div>
+      <button type="button" id="home">Kembali ke Halaman Utama</button>
+    `;
+  }
+  
+  function renderClaimed(user, prize, card) {
+    return `
+      <div class="result">
+        Maaf, kamu sudah pernah claim dengan user <strong>${user}</strong>.<br>
+        Sebelumnya  kamu mendapat hadiah <strong>${prize.replace("<br>", " ")}</strong> dari <strong>Kartu ${card.replace("card", "")}</strong>.
+      </div>
+      <div class="card-wrapper">
+        <div class="result-card">
+          <div class="card-inner">
+            <div class="card-front end">
+              ${prize}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card" id="card3">
-      <div class="card-inner">
-        <div class="card-front">
-          <span class="top"><u>3</u></span>
-          <span class="mid"><img class="logo" src="https://wasiat4d2.info/images/logo.png" alt="logo_wasiat4d_2"></span>
-          <span class="bot"><u>3</u></span>
-        </div>
-        <div class="card-back" id="back3">
-          belakang
-        </div>
+      <div class="claim-prize">
+        Silakan <strong>Screenshot</strong> dan Claim Ke <strong><a href="https://shorthe.link/loginwasiat4d2" target="_blank" rel="noopener">Livechatt</a></strong> atau <strong><a href="https://shorthe.link/wa-wasiat4d2" target="_blank" rel="noopener">WhatsApp</a></strong> Untuk Claim Hadiahnya.
       </div>
-    </div>
-  </div>
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <div class="question" id="question"></div>
-      <div class="btn-in-modal">
-        <button type="button" class="acc-btn" id="ya" value="Ya">Ya</button>
-        <button type="button" class="rej-btn" id="batal" value="Batal">Batal</button>
+      <button type="button" id="home">Kembali ke Halaman Utama</button>
+    `;
+  }
+    
+  function renderHadiah() {
+    return `
+      <div class="container">
+        <h2>List Hadiah Mini Games WASIAT4D2</h2>
+        <table>
+          <tr>
+            <td>Hadiah</td>
+            <td>Keterangan</td>
+            <td>Peluang</td>
+          </tr>
+        </table>
+        <button type="button" id="home">Kembali ke Halaman Utama</button>
       </div>
-    </div>
-  </div>
-  <div class="notif" id="notif">
-    Silahkan pilih salah satu kartu dari 3 kartu di atas.<br>
-    <div class="price">
-      <table>
-        <tr>
-          <th colspan="2" class="first-row">Peluang Hadiah</th>
-        <tr>
-          <td class="bns-type">BONUS DEPOSIT 10%</td>
-          <td class="chance" style="color:green">75%</td>
-        </tr>
-        <tr>
-          <td class="bns-type">BONUS NEW MEMBER 100%</td>
-          <td class="chance" style="color:yellow">20%</td>
-        </tr>
-        <tr>
-          <td class="bns-type last-row1">DANA KAGET 50 RIBU</td>
-          <td class="chance last-row2" style="color:red">5%</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <p class="linkalt">CLAIM Hadiah di <a href="http://wasiat4d2.info/" target="_blank" rel="noreferrer noopener">WASIAT4D 2</a></p>
-  <script src="script.js">
-  </script>
+    `;
+  }
+  
+  function render() {
+    const app = document.getElementById("app");
+    if (stage === "welcome") {
+      const savedUserNow = localStorage.getItem("confirmedUser");
+      const savedPrizeNow = localStorage.getItem("confirmedPrize");
+      const savedCardNow = localStorage.getItem("confirmedCard");
+      app.innerHTML = renderWelcome();
+      const hadiah = document.getElementById("hadiah");
+      const sudah = document.getElementById("sudah");
+      const belum = document.getElementById("belum");
+      hadiah.addEventListener("click", () => {
+        app.innerHTML = renderHadiah();
+        const homeBtn = document.getElementById("home");
+          homeBtn.addEventListener("click", () => {
+            render();
+          });
+      });
+      sudah.addEventListener("click", () => {
+        if (savedUserNow && savedPrizeNow && savedCardNow) {
+          app.innerHTML = renderClaimed(savedUserNow, savedPrizeNow, savedCardNow);
+          const homeBtn = document.getElementById("home");
+          homeBtn.addEventListener("click", () => {
+            render();
+          });
+        }
+        else {
+          stage = "inputUser";
+          render();
+        }
+      });
+      belum.addEventListener("click", () => {
+        alert("Silahkan Daftarkan Akun Terlebih Dahulu!");
+      });
+    }
+    if (stage === "inputUser") {
+      app.innerHTML = renderInputUser();
+      menuBack();
+      const usernameInput = document.getElementById("username");
+      const lanjut = document.getElementById("lanjut");
+      usernameInput.addEventListener("input", () => {
+        usernameInput.value = usernameInput.value.replace(/[^a-zA-Z0-9]/g, "");
+        lanjut.disabled = usernameInput.value.length < 6 || usernameInput.value.length > 16;
+      });
+      usernameInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !lanjut.disabled) {
+          lanjut.click();
+        }
+        if (e.key == "Enter" && usernameInput.value === "") {
+          alert("Harap Masukkan Username Terlebih Dahulu!");
+        }
+        if (e.key === "Enter" && usernameInput.value.length < 6) {
+          alert("Minimal 6 Karakter!");
+        }
+      });
+      lanjut.addEventListener("click", () => {
+        username = usernameInput.value;
+        stage = "playing";
+        render();
+      });
+    }
+    if (stage === "playing") {
+      app.innerHTML = renderGames();
+      menuBack();
+      const cards = document.querySelectorAll(".card");
+      const shuffle = document.getElementById("shuffle");
+      const wrapper = document.querySelector(".card-wrapper");
+      if (cardsFlipped) {
+        cards.forEach(card => card.classList.add("flipped"));
+      }
+      if (shuffled) {
+        shuffle.disabled = true;
+        shuffle.innerHTML = "Sudah diacak";
+        choose = "UNLOCKED";
+      }
+      shuffle.addEventListener("click", () => {
+        cards.forEach(card => card.classList.add("flipped"));
+        cardsFlipped = true;
+        shuffled = true;
+        setTimeout(() => {
+          wrapper.innerHTML = "Mengacak Kartu...";
+        }, 1500);
+        setTimeout(() => {
+          render();
+        },3000);
+      });
+      cards.forEach(card => {
+        card.addEventListener("click", () => {
+          if (choose === "LOCKED") return;
+          selectedCard = card;
+          const modal = document.getElementById("modal");
+          modal.style.display = "flex";
+          modal.innerHTML = renderModal();
+          const yesBtn = document.getElementById("yes");
+          const noBtn = document.getElementById("no");
+          noBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+            modal.innerHTML = "";
+          });
+          yesBtn.addEventListener("click", () => {
+            localStorage.setItem("confirmedUser", username);
+            localStorage.setItem("confirmedCard", selectedCard.id);
+            localStorage.setItem("confirmedPrize", currentPrize);
+            choose = "LOCKED";
+            stage = "result";
+            render();
+          });
+        });
+      });
+    }
+    if (stage === "result") {
+      app.innerHTML = renderResult();
+      const greets = document.querySelector("h1");
+      const homeBtn = document.getElementById("home");
+      greets.innerHTML = "HADIAH KAMU";
+      homeBtn.addEventListener("click", () => {
+        stage = "welcome";
+        greets.innerHTML = "Selamat Datang Di Minigames WASIAT4D2";
+        render();
+      });
+    }
+  }
+
+  render();
+</script>
 </body>
 </html>
-
-
-
-
-
-
